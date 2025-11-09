@@ -7,12 +7,16 @@ import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
 import { Toaster } from '@/components/ui/toaster';
 import { FeedbackForm } from '@/components/feedback-form';
+import Gallery from '@/components/sections/gallery';
+import Awards from '@/components/sections/awards';
 
 export default function Home() {
   return (
     <>
       <Hero />
       <About />
+      <Awards />
+      <Gallery />
       <Advisory />
       <Vision />
       <Insights />

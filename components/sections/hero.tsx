@@ -17,6 +17,17 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* SWE Patent Recognition Award Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 text-sm text-foreground/90 bg-accent/60 rounded-full px-3 py-1 mb-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+            >
+              <span className="inline-block h-2 w-2 rounded-full bg-foreground" />
+              Honored with SWE’s Patent Recognition Award — Global Engineering Honor (2025)
+            </motion.div>
+
             <motion.p
               className="text-sm uppercase tracking-wider text-muted-foreground mb-6"
               initial={{ opacity: 0 }}
@@ -60,6 +71,7 @@ export default function Hero() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
+
               <Button
                 asChild
                 size="lg"
@@ -67,6 +79,15 @@ export default function Hero() {
                 className="border-border hover:bg-accent"
               >
                 <Link href="#contact">Connect</Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-border hover:bg-accent"
+              >
+                <Link href="#gallery">Gallery</Link>
               </Button>
             </motion.div>
           </motion.div>
