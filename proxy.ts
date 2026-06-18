@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const adminSession = request.cookies.get('admin_session');
   const { pathname } = request.nextUrl;
 
@@ -24,7 +24,9 @@ export function middleware(request: NextRequest) {
       const SESSION_DURATION = 24 * 60 * 60 * 1000;
 
       if (Date.now() - session.createdAt > SESSION_DURATION) {
-        const response = NextResponse.redirect(new URL('/admin/login', request.url));
+        const response = NextResponse.redirect(
+          new URL('/admin/login', request.url)
+        );
         response.cookies.delete('admin_session');
         return response;
       }
