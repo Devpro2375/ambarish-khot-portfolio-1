@@ -6,6 +6,12 @@ import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
 const galleryItems = [
+  {
+    src: '/gallery/dep-meshworks-aiworks-conclave-2026.jpeg',
+    title: 'DEP MeshWorks | AIWorks Conclave 2026',
+    description:
+      'Panel member recognition for contributions to physics-driven predictive and generative AI in product development and manufacturing.',
+  },
   // {
   //   src: '/gallery/swe-patent-award.jpg',
   //   title: 'SWE Patent Recognition Award (2025)',
@@ -14,7 +20,7 @@ const galleryItems = [
   // },
   {
     src: '/gallery/siemens-best-paper.jpeg',
-    title: 'Best Technical Paper Award – Siemens (2023)',
+    title: 'Best Technical Paper Award - Siemens (2023)',
     description:
       'Awarded during Simcenter Day 2023 for outstanding technical contribution.',
   },
@@ -40,7 +46,7 @@ export default function Gallery() {
 
   return (
     <section id="gallery" ref={ref} className="py-28 bg-background">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Heading */}
         <motion.div
@@ -60,7 +66,7 @@ export default function Gallery() {
         </motion.div>
 
         {/* Museum Wall Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {galleryItems.map((item, index) => (
             <motion.div
               key={index}
