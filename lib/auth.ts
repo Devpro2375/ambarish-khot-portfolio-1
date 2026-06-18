@@ -1,18 +1,19 @@
 import { cookies } from 'next/headers';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
-  }
-});
+import bcrypt from 'bcryptjs';
+import { query } from './db';
 
 const ADMIN_SESSION_COOKIE = 'admin_session';
 const SESSION_DURATION = 24 * 60 * 60 * 1000;
+
+type AdminUser = {
+  id: string;
+  email: string;
+  name: string;
+  password_hash: string;
+  last_login: string | null;
+  created_at: string;
+  updated_at: string;
+};
 
 export async function createAdminSession(email: string) {
   const sessionToken = Buffer.from(
@@ -64,20 +65,19 @@ export async function clearAdminSession() {
 }
 
 export async function verifyAdmin(email: string, password: string) {
-  const { data: user, error } = await supabaseAdmin
-    .from('admin_users')
-    .select('*')
-    .eq('email', email)
-    .maybeSingle();
+  const result = await query<AdminUser>(
+    'select * from admin_users where email = $1 limit 1',
+    [email]
+  );
+  const user = result.rows[0] ?? null;
 
-  console.log('[AUTH] User lookup:', { email, found: !!user, error });
+  console.log('[AUTH] User lookup:', { email, found: !!user });
 
   if (!user) {
     console.log('[AUTH] User not found');
     return null;
   }
 
-  const bcrypt = require('bcryptjs');
   const isValid = await bcrypt.compare(password, user.password_hash);
 
   console.log('[AUTH] Password validation:', { isValid });
@@ -87,10 +87,10 @@ export async function verifyAdmin(email: string, password: string) {
     return null;
   }
 
-  await supabaseAdmin
-    .from('admin_users')
-    .update({ last_login: new Date().toISOString() })
-    .eq('id', user.id);
+  await query(
+    'update admin_users set last_login = now(), updated_at = now() where id = $1',
+    [user.id]
+  );
 
   console.log('[AUTH] Login successful');
   return user;

@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { deleteById, query, updateRow } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
+import type { Project } from '@/lib/types';
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const result = await query<Project>(
+    'select * from projects where id = $1 limit 1',
+    [id]
+  );
+  const data = result.rows[0];
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 404 });
+  if (!data) {
+    return NextResponse.json({ error: 'Project not found' }, { status: 404 });
   }
 
   return NextResponse.json(data);
@@ -32,26 +33,26 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { data, error } = await supabase
-      .from('projects')
-      .update({
-        ...body,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', id)
-      .select()
-      .single();
+    const data = await updateRow<Project>('projects', id, {
+      ...body,
+      updated_at: new Date().toISOString(),
+    });
 
-    if (error) throw error;
+    if (!data) {
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    }
 
     return NextResponse.json(data);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to update project' },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getAdminSession();
@@ -60,13 +61,10 @@ export async function DELETE(
   }
 
   const { id } = await params;
-  const { error } = await supabase
-    .from('projects')
-    .delete()
-    .eq('id', id);
+  const deleted = await deleteById('projects', id);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (!deleted) {
+    return NextResponse.json({ error: 'Project not found' }, { status: 404 });
   }
 
   return NextResponse.json({ message: 'Project deleted successfully' });

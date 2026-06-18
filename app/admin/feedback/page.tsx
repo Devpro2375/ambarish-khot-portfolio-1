@@ -24,7 +24,7 @@ import {
 import { Mail, Trash2, Clock, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import type { FeedbackSubmission } from '@/lib/supabase';
+import type { FeedbackSubmission } from '@/lib/types';
 
 export default function FeedbackAdmin() {
   const [submissions, setSubmissions] = useState<FeedbackSubmission[]>([]);

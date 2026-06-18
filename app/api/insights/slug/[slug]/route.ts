@@ -1,19 +1,19 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
+import type { Insight } from '@/lib/types';
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const { data, error } = await supabase
-    .from('insights')
-    .select('*')
-    .eq('slug', slug)
-    .eq('published', true)
-    .single();
+  const result = await query<Insight>(
+    'select * from insights where slug = $1 and published = true limit 1',
+    [slug]
+  );
+  const data = result.rows[0];
 
-  if (error) {
+  if (!data) {
     return NextResponse.json({ error: 'Insight not found' }, { status: 404 });
   }
 

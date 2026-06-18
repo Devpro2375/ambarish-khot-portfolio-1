@@ -1,27 +1,26 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { insertRow, query } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
+import type { Insight } from '@/lib/types';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const includeUnpublished = searchParams.get('all') === 'true';
 
-  let query = supabase
-    .from('insights')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const result = await query<Insight>(
+      `select * from insights ${
+        includeUnpublished ? '' : 'where published = true'
+      } order by created_at desc`
+    );
 
-  if (!includeUnpublished) {
-    query = query.eq('published', true);
+    return NextResponse.json(result.rows);
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to load insights' },
+      { status: 500 }
+    );
   }
-
-  const { data, error } = await query;
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
@@ -32,21 +31,16 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { data, error } = await supabase
-      .from('insights')
-      .insert([
-        {
-          ...body,
-          updated_at: new Date().toISOString(),
-        },
-      ])
-      .select()
-      .single();
-
-    if (error) throw error;
+    const data = await insertRow<Insight>('insights', {
+      ...body,
+      updated_at: new Date().toISOString(),
+    });
 
     return NextResponse.json(data, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to create insight' },
+      { status: 500 }
+    );
   }
 }
