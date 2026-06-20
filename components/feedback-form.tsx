@@ -116,6 +116,7 @@ export function FeedbackForm() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="general">General Feedback</SelectItem>
+                <SelectItem value="testimonial">Testimonial</SelectItem>
                 <SelectItem value="technical">Technical Inquiry</SelectItem>
                 <SelectItem value="collaboration">Collaboration Request</SelectItem>
               </SelectContent>

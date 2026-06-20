@@ -1,27 +1,20 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { findRows, insertRow } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
+import type { Project } from '@/lib/types';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const includeUnpublished = searchParams.get('all') === 'true';
 
-  let query = supabase
-    .from('projects')
-    .select('*')
-    .order('order_index', { ascending: true });
+  const filter = includeUnpublished ? {} : { published: true };
 
-  if (!includeUnpublished) {
-    query = query.eq('published', true);
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
+  try {
+    const data = await findRows<Project>('projects', filter, { order_index: 1 });
+    return NextResponse.json(data);
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
@@ -32,18 +25,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { data, error } = await supabase
-      .from('projects')
-      .insert([
-        {
-          ...body,
-          updated_at: new Date().toISOString(),
-        },
-      ])
-      .select()
-      .single();
-
-    if (error) throw error;
+    const data = await insertRow<Project>('projects', body);
 
     return NextResponse.json(data, { status: 201 });
   } catch (error: any) {

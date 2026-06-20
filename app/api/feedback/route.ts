@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { findRows, insertRow } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
+import type { FeedbackSubmission } from '@/lib/types';
 
 export async function GET(request: Request) {
   const session = await getAdminSession();
@@ -11,22 +12,18 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status');
 
-  let query = supabase
-    .from('feedback_submissions')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const filter = status && status !== 'all' ? { status } : {};
 
-  if (status && status !== 'all') {
-    query = query.eq('status', status);
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
+  try {
+    const data = await findRows<FeedbackSubmission>(
+      'feedback_submissions',
+      filter,
+      { created_at: -1 }
+    );
+    return NextResponse.json(data);
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
@@ -41,22 +38,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('feedback_submissions')
-      .insert([
-        {
-          name,
-          email,
-          feedback_type,
-          message,
-          rating,
-          status: 'new',
-        },
-      ])
-      .select()
-      .single();
-
-    if (error) throw error;
+    const data = await insertRow<FeedbackSubmission>('feedback_submissions', {
+      name,
+      email,
+      feedback_type,
+      message,
+      rating,
+      status: 'new',
+    });
 
     return NextResponse.json(
       { message: 'Feedback submitted successfully', data },

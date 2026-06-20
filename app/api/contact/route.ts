@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { findRows, insertRow } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
+import type { ContactSubmission } from '@/lib/types';
 
 export async function GET(request: Request) {
   const session = await getAdminSession();
@@ -11,22 +12,18 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status');
 
-  let query = supabase
-    .from('contact_submissions')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const filter = status && status !== 'all' ? { status } : {};
 
-  if (status && status !== 'all') {
-    query = query.eq('status', status);
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
+  try {
+    const data = await findRows<ContactSubmission>(
+      'contact_submissions',
+      filter,
+      { created_at: -1 }
+    );
+    return NextResponse.json(data);
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
@@ -41,21 +38,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('contact_submissions')
-      .insert([
-        {
-          name,
-          email,
-          organization,
-          message,
-          status: 'new',
-        },
-      ])
-      .select()
-      .single();
-
-    if (error) throw error;
+    const data = await insertRow<ContactSubmission>('contact_submissions', {
+      name,
+      email,
+      organization,
+      message,
+      status: 'new',
+    });
 
     return NextResponse.json(
       { message: 'Contact form submitted successfully', data },

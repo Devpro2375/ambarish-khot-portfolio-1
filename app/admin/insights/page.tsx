@@ -28,7 +28,7 @@ import { Plus, Edit, Trash2, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
-import type { Insight } from '@/lib/supabase';
+import type { Insight } from '@/lib/types';
 
 export default function InsightsAdmin() {
   const [insights, setInsights] = useState<Insight[]>([]);

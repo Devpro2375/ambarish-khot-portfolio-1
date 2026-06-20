@@ -12,6 +12,7 @@ const navItems = [
   { name: 'Vision', href: '#vision' },
   { name: 'Insights', href: '#insights' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Testimonials', href: '#testimonials' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -39,7 +40,7 @@ export default function Navigation() {
             AK
           </Link>
 
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-5">
             {navItems.map((item) => (
               <Link
                 key={item.name}

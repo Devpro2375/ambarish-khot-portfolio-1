@@ -24,7 +24,7 @@ import {
 import { Mail, Building, Trash2, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import type { ContactSubmission } from '@/lib/supabase';
+import type { ContactSubmission } from '@/lib/types';
 
 export default function ContactAdmin() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);

@@ -24,7 +24,7 @@ import {
 import { Mail, Trash2, Clock, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import type { FeedbackSubmission } from '@/lib/supabase';
+import type { FeedbackSubmission } from '@/lib/types';
 
 export default function FeedbackAdmin() {
   const [submissions, setSubmissions] = useState<FeedbackSubmission[]>([]);
@@ -123,10 +123,20 @@ export default function FeedbackAdmin() {
     }
   };
 
+  const getStatusLabel = (status: string, type?: string) => {
+    if (status === 'responded' && type === 'testimonial') {
+      return 'published';
+    }
+
+    return status;
+  };
+
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'general':
         return 'border-blue-500';
+      case 'testimonial':
+        return 'border-amber-500';
       case 'technical':
         return 'border-purple-500';
       case 'collaboration':
@@ -166,7 +176,7 @@ export default function FeedbackAdmin() {
               <SelectItem value="all">All Submissions</SelectItem>
               <SelectItem value="new">New</SelectItem>
               <SelectItem value="read">Read</SelectItem>
-              <SelectItem value="responded">Responded</SelectItem>
+              <SelectItem value="responded">Responded / Published</SelectItem>
               <SelectItem value="archived">Archived</SelectItem>
             </SelectContent>
           </Select>
@@ -191,7 +201,7 @@ export default function FeedbackAdmin() {
                         <div className="flex items-center gap-3 mb-2">
                           <CardTitle className="text-xl">{submission.name}</CardTitle>
                           <Badge className={getStatusColor(submission.status)}>
-                            {submission.status}
+                            {getStatusLabel(submission.status, submission.feedback_type)}
                           </Badge>
                           <Badge variant="outline">
                             {submission.feedback_type}
@@ -242,7 +252,7 @@ export default function FeedbackAdmin() {
                         <SelectContent>
                           <SelectItem value="new">New</SelectItem>
                           <SelectItem value="read">Read</SelectItem>
-                          <SelectItem value="responded">Responded</SelectItem>
+                          <SelectItem value="responded">Responded / Published</SelectItem>
                           <SelectItem value="archived">Archived</SelectItem>
                         </SelectContent>
                       </Select>

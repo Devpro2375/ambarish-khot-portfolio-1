@@ -9,6 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { FeedbackForm } from '@/components/feedback-form';
 import Gallery from '@/components/sections/gallery';
 import Awards from '@/components/sections/awards';
+import Testimonials from '@/components/sections/testimonials';
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <Vision />
       <Insights />
       <Projects />
+      <Testimonials />
       <Contact />
       <FeedbackForm />
       <Toaster />

@@ -28,7 +28,7 @@ import { Plus, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
-import type { Project } from '@/lib/supabase';
+import type { Project } from '@/lib/types';
 
 export default function ProjectsAdmin() {
   const [projects, setProjects] = useState<Project[]>([]);
