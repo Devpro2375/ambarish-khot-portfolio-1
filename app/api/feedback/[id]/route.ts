@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { deleteById, updateRow } from '@/lib/db';
 import { getAdminSession } from '@/lib/auth';
 import type { FeedbackSubmission } from '@/lib/types';
+
+const statusSchema = z
+  .object({
+    status: z.enum(['new', 'read', 'responded', 'archived']),
+  })
+  .strict();
 
 export async function PUT(
   request: Request,
@@ -15,10 +22,16 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
+    const parsed = statusSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+    }
+
     const data = await updateRow<FeedbackSubmission>(
       'feedback_submissions',
       id,
-      body
+      parsed.data
     );
 
     if (!data) {
