@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DotPattern } from '@/components/ui/dot-pattern';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Hero() {
@@ -110,6 +111,18 @@ export default function Hero() {
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
+              </div>
+              <div className="absolute left-1/2 top-1/2 h-[86%] w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-background/80 bg-background/80 p-2 shadow-2xl shadow-foreground/10 backdrop-blur-sm">
+                <div className="relative h-full overflow-hidden rounded-xl bg-muted">
+                  <Image
+                    src="/hero-ambarish-khot.png"
+                    alt="Portrait of Ambarish Khot"
+                    fill
+                    priority
+                    className="object-cover object-[52%_24%]"
+                    sizes="(min-width: 1024px) 31vw, 100vw"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

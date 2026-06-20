@@ -1,76 +1,202 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award } from "lucide-react";
+import { Award, ExternalLink, Lightbulb, Users } from "lucide-react";
+import Image from "next/image";
+
+const achievements = [
+  {
+    title: "SWE Innovator - Patent Recognition Award",
+    year: "2025",
+    label: "Global Patent Recognition",
+    image: "/gallery/cummins-patent-wall.jpeg",
+    imageAlt: "Cummins Technical Center India patent wall",
+    icon: Award,
+    summary:
+      "Listed by the Society of Women Engineers under Patent Recognition as Ambarish Khot, D.Eng, Cummins Inc., with 2 patents.",
+    details: [
+      "Recognizes engineering-related patents granted in the previous three years.",
+      "Highlights patented innovation work connected with Cummins engineering impact.",
+    ],
+    links: [
+      {
+        label: "Official SWE listing",
+        href: "https://alltogether.swe.org/2025/09/2025-swe-recognition-recipients/",
+      },
+    ],
+  },
+  {
+    title: "CII Industry-Academia Partnership",
+    year: "2025",
+    label: "Industry + University Collaboration",
+    icon: Lightbulb,
+    summary:
+      "Cummins Technologies India Private Limited is featured in the CII Industry-Academia Partnership Compendium 2025 for the IIT Dharwad collaboration on urea dosing and droplet-wall interaction dynamics.",
+    details: [
+      "Project: Droplet Wall Interaction Dynamics During Urea Dosing in an After Treatment System.",
+      "Leader listed in the CII compendium: Ambarish D Khot.",
+    ],
+    links: [
+      {
+        label: "CII award page",
+        href: "https://cii-industryacademia.in/award_2025",
+      },
+      {
+        label: "CII 2025 compendium",
+        href: "https://cii-industryacademia.in/images/pdf/CII-Industry-Academia-Partnership-Compendium-2025.pdf",
+      },
+    ],
+  },
+  {
+    title: "Key Panel Member - AI Conference",
+    year: "2026",
+    label: "DEP MeshWorks | AIWorks Conclave",
+    image: "/gallery/dep-meshworks-aiworks-conclave-2026.jpeg",
+    imageAlt: "DEP MeshWorks and AIWorks Conclave 2026 panel member recognition",
+    icon: Users,
+    summary:
+      "Recognized as a panel member at the DEP MeshWorks | AIWorks Conclave 2026 on physics-driven predictive and generative AI for product development and manufacturing.",
+    details: [
+      "Event date shown on the recognition plaque: April 7, 2026.",
+      "Focus area: physics-driven predictive AI, generative AI, and simulation-led engineering transformation.",
+    ],
+    links: [
+      {
+        label: "DEP AIWorks",
+        href: "https://depusa.com/index.php/aiworks",
+      },
+      {
+        label: "DEP MeshWorks",
+        href: "https://depusa.com/index.php/meshworks",
+      },
+    ],
+  },
+];
 
 export default function Awards() {
   return (
     <section
       id="awards"
-      className="py-20 sm:py-28 bg-background border-t border-border"
+      className="border-t border-border bg-background py-16 sm:py-20"
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          className="mx-auto mb-10 max-w-3xl text-center"
         >
-          <p className="text-xs sm:text-sm uppercase tracking-wider text-muted-foreground mb-2 sm:mb-3">
-            Recognition
+          <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground sm:mb-3 sm:text-sm">
+            Recent Recognition
           </p>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-snug">
+          <h2 className="font-serif text-3xl font-bold leading-snug text-foreground sm:text-4xl md:text-5xl">
             Awards & Achievements
           </h2>
+
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Verified recognitions, industry collaborations, and technical AI
+            leadership moments with source links.
+          </p>
         </motion.div>
 
-        {/* Award Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-card border border-border p-6 sm:p-10 rounded-2xl shadow-md hover:shadow-xl transition-all"
-        >
-          <div className="flex items-start gap-4 sm:gap-6">
-            {/* Icon */}
-            <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl bg-foreground text-background shrink-0">
-              <Award className="h-6 w-6 sm:h-7 sm:w-7" />
-            </div>
+        <div className="space-y-4">
+          {achievements.map((achievement, index) => {
+            const Icon = achievement.icon;
 
-            {/* Text */}
-            <div className="flex-1">
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-foreground mb-2 leading-snug">
-                SWE Patent Recognition Award (2025)
-              </h3>
-
-              <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed mb-3">
-                Recognized globally by the Society of Women Engineers (SWE) for
-                innovation excellence and patent contributions.
-              </p>
-
-              <p className="text-xs sm:text-sm text-muted-foreground">
-                Message from Ambarish:
-                <span className="block text-foreground font-medium mt-1">
-                  “It gives me immense pleasure to share that I received the SWE
-                  Patent Award as an innovator. This recognition is global. You
-                  can search my name on the official awards list.”
-                </span>
-              </p>
-
-              <a
-                href="https://alltogether.swe.org/2025/09/2025-swe-recognition-recipients/"
-                target="_blank"
-                className="text-foreground underline mt-4 inline-block hover:text-foreground/80 text-sm sm:text-base"
+            return (
+              <motion.article
+                key={achievement.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: index * 0.12 }}
+                className="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md md:grid-cols-[220px_1fr] md:items-stretch"
               >
-                View Official Award Listing →
-              </a>
-            </div>
-          </div>
-        </motion.div>
+                <div className="relative h-40 rounded-lg border border-border/60 bg-muted p-3 md:h-full md:min-h-[168px]">
+                  <div className="relative h-full overflow-hidden rounded-md bg-background">
+                    {achievement.image ? (
+                      <Image
+                        src={achievement.image}
+                        alt={achievement.imageAlt}
+                        fill
+                        className="object-contain"
+                        sizes="(min-width: 768px) 220px, 100vw"
+                      />
+                    ) : (
+                      <div className="flex h-full flex-col justify-between bg-[linear-gradient(135deg,hsl(var(--foreground))_0%,hsl(var(--neutral-700))_58%,hsl(var(--accent-blue-700))_100%)] p-5 text-background">
+                        <div className="flex items-center justify-between text-[11px] uppercase tracking-wider text-background/70">
+                          <span>CII</span>
+                          <span>{achievement.year}</span>
+                        </div>
+                        <div>
+                          <p className="mb-2 font-serif text-2xl font-bold leading-tight">
+                            Industry + Academia
+                          </p>
+                          <p className="text-xs leading-relaxed text-background/75">
+                            Cummins x IIT Dharwad collaboration featured in the
+                            2025 compendium.
+                          </p>
+                        </div>
+                        <div className="h-1 w-20 bg-background/80" />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="absolute left-5 top-5 rounded-full bg-background/95 px-2.5 py-1 text-[11px] font-medium text-foreground shadow-sm">
+                    {achievement.year}
+                  </div>
+                </div>
+
+                <div className="flex min-w-0 flex-col py-1">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
+                      <Icon className="h-[18px] w-[18px]" />
+                    </div>
+
+                    <div>
+                      <p className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">
+                        {achievement.label}
+                      </p>
+                      <h3 className="font-serif text-xl font-bold leading-tight text-foreground sm:text-2xl">
+                        {achievement.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {achievement.summary}
+                  </p>
+
+                  <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
+                    {achievement.details.map((detail) => (
+                      <li key={detail} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/70" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {achievement.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
+                      >
+                        {link.label}
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
