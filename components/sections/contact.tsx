@@ -65,10 +65,10 @@ export default function Contact() {
                 <div className="min-w-0">
                   <p className="font-medium text-foreground">Email</p>
                   <a
-                    href="mailto:ambarishkhot@gmail.com"
+                    href="mailto:ambarishkhot11@gmail.com"
                     className="break-words text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-base"
                   >
-                    ambarishkhot@gmail.com
+                    ambarishkhot11@gmail.com
                   </a>
                 </div>
               </div>
@@ -111,10 +111,6 @@ export default function Contact() {
                 Technical consulting, collaborative research, speaking
                 engagements, CFD simulation, emission solutions, and systematic
                 innovation.
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Mobile:</span>{' '}
-                +91 9975428004
               </p>
             </div>
           </motion.div>
