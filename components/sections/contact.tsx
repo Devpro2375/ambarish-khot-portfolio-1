@@ -1,9 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Linkedin, MapPin } from 'lucide-react';
+import { Linkedin, Mail, MapPin, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -31,93 +30,92 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={ref} className="py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="contact" ref={ref} className="section-shell bg-background">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="section-header"
         >
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-4">
-            Get in Touch
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Let's Collaborate
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Open to technical consulting, collaborative research, speaking engagements, and innovation partnerships.
+          <p className="section-kicker">Get in Touch</p>
+          <h2 className="section-title">Let&apos;s Collaborate</h2>
+          <p className="section-copy mx-auto mt-4 max-w-3xl">
+            Open to technical consulting, collaborative research, speaking
+            engagements, and innovation partnerships.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2"
           >
-            <div>
-              <h3 className="font-serif text-2xl font-bold text-foreground mb-6">
-                Contact Information
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <Mail className="h-5 w-5 text-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Email</p>
-                    <a
-                      href="mailto:ambarishkhot@gmail.com"
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      ambarishkhot@gmail.com
-                    </a>
-                  </div>
-                </div>
+            <h3 className="font-serif text-2xl font-bold text-foreground">
+              Contact Information
+            </h3>
 
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <Linkedin className="h-5 w-5 text-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">LinkedIn</p>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      Connect on LinkedIn
-                    </a>
-                  </div>
+            <div className="mt-5 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="icon-tile">
+                  <Mail className="h-[18px] w-[18px]" />
                 </div>
+                <div className="min-w-0">
+                  <p className="font-medium text-foreground">Email</p>
+                  <a
+                    href="mailto:ambarishkhot@gmail.com"
+                    className="break-words text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-base"
+                  >
+                    ambarishkhot@gmail.com
+                  </a>
+                </div>
+              </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <MapPin className="h-5 w-5 text-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Location</p>
-                    <p className="text-muted-foreground">
-                      India • Cummins Technical Center
-                    </p>
-                  </div>
+              <div className="flex items-start gap-3">
+                <div className="icon-tile">
+                  <Linkedin className="h-[18px] w-[18px]" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground">LinkedIn</p>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-base"
+                  >
+                    Connect on LinkedIn
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="icon-tile">
+                  <MapPin className="h-[18px] w-[18px]" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground">Location</p>
+                  <p className="text-sm text-muted-foreground sm:text-base">
+                    India, Cummins Technical Center
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="pt-8 border-t border-border">
-              <div className="space-y-3">
-                <p className="text-sm font-semibold text-foreground">Areas of Collaboration</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Technical consulting • Collaborative research • Speaking engagements • CFD simulation • Emission solutions • Systematic innovation
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">Mobile:</span> +91 9975428004
-                </p>
-              </div>
+            <div className="mt-7 border-t border-border pt-6">
+              <p className="text-sm font-semibold text-foreground">
+                Areas of Collaboration
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Technical consulting, collaborative research, speaking
+                engagements, CFD simulation, emission solutions, and systematic
+                innovation.
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Mobile:</span>{' '}
+                +91 9975428004
+              </p>
             </div>
           </motion.div>
 
@@ -127,12 +125,15 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-lg border border-border bg-card p-4 shadow-sm sm:p-5"
+            >
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-foreground mb-2"
+                    className="mb-2 block text-sm font-medium text-foreground"
                   >
                     Name
                   </label>
@@ -147,7 +148,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-foreground mb-2"
+                    className="mb-2 block text-sm font-medium text-foreground"
                   >
                     Email
                   </label>
@@ -162,10 +163,10 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div>
+              <div className="mt-4">
                 <label
                   htmlFor="organization"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Organization
                 </label>
@@ -177,10 +178,10 @@ export default function Contact() {
                 />
               </div>
 
-              <div>
+              <div className="mt-4">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-foreground mb-2"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Message
                 </label>
@@ -188,19 +189,19 @@ export default function Contact() {
                   id="message"
                   name="message"
                   required
-                  rows={6}
+                  rows={5}
                   placeholder="Tell me about your project or inquiry..."
-                  className="border-border resize-none"
+                  className="resize-none border-border"
                 />
               </div>
 
               <Button
                 type="submit"
-                size="lg"
                 disabled={isSubmitting}
-                className="w-full bg-foreground text-background hover:bg-foreground/90"
+                className="mt-5 w-full bg-foreground text-background hover:bg-foreground/90"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
+                <Send className="ml-2 h-4 w-4" />
               </Button>
             </form>
           </motion.div>

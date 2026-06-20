@@ -75,27 +75,20 @@ const achievements = [
 
 export default function Awards() {
   return (
-    <section
-      id="awards"
-      className="border-t border-border bg-background py-16 sm:py-20"
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section id="awards" className="section-shell border-t border-border bg-background">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mb-10 max-w-3xl text-center"
+          className="section-header"
         >
-          <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground sm:mb-3 sm:text-sm">
-            Recent Recognition
-          </p>
+          <p className="section-kicker">Recent Recognition</p>
 
-          <h2 className="font-serif text-3xl font-bold leading-snug text-foreground sm:text-4xl md:text-5xl">
-            Awards & Achievements
-          </h2>
+          <h2 className="section-title">Awards & Achievements</h2>
 
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          <p className="section-copy mx-auto mt-4 max-w-3xl">
             Verified recognitions, industry collaborations, and technical AI
             leadership moments with source links.
           </p>
@@ -112,9 +105,9 @@ export default function Awards() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: index * 0.12 }}
-                className="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md md:grid-cols-[220px_1fr] md:items-stretch"
+                className="grid gap-4 rounded-lg border border-border bg-card p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:p-4 md:grid-cols-[200px_1fr] md:items-stretch"
               >
-                <div className="relative h-40 rounded-lg border border-border/60 bg-muted p-3 md:h-full md:min-h-[168px]">
+                <div className="relative h-36 rounded-lg border border-border/60 bg-muted p-2 md:h-full md:min-h-[156px]">
                   <div className="relative h-full overflow-hidden rounded-md bg-background">
                     {achievement.image ? (
                       <Image
@@ -144,14 +137,14 @@ export default function Awards() {
                     )}
                   </div>
 
-                  <div className="absolute left-5 top-5 rounded-full bg-background/95 px-2.5 py-1 text-[11px] font-medium text-foreground shadow-sm">
+                  <div className="absolute left-4 top-4 rounded-md bg-background/95 px-2.5 py-1 text-[11px] font-medium text-foreground shadow-sm">
                     {achievement.year}
                   </div>
                 </div>
 
                 <div className="flex min-w-0 flex-col py-1">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-foreground text-background">
                       <Icon className="h-[18px] w-[18px]" />
                     </div>
 
@@ -165,7 +158,7 @@ export default function Awards() {
                     </div>
                   </div>
 
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {achievement.summary}
                   </p>
 
@@ -185,7 +178,7 @@ export default function Awards() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
+                        className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
                       >
                         {link.label}
                         <ExternalLink className="h-3.5 w-3.5" />

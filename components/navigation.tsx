@@ -34,18 +34,18 @@ export default function Navigation() {
         isScrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm border-b border-border' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="font-serif text-2xl font-bold tracking-tight text-foreground hover:text-muted-foreground transition-colors">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between sm:h-[72px]">
+          <Link href="/" className="font-serif text-xl font-bold tracking-tight text-foreground transition-colors hover:text-muted-foreground sm:text-2xl">
             AK
           </Link>
 
-          <div className="hidden md:flex items-center space-x-5">
+          <div className="hidden items-center gap-4 lg:flex xl:gap-5">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="group relative text-xs font-medium text-muted-foreground transition-colors hover:text-foreground xl:text-sm"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full" />
@@ -60,7 +60,7 @@ export default function Navigation() {
             </Button>
           </div>
 
-          <div className="md:hidden flex items-center gap-2">
+          <div className="flex items-center gap-2 lg:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -77,13 +77,13 @@ export default function Navigation() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border">
-          <div className="px-6 py-4 space-y-4">
+        <div className="border-t border-border bg-background lg:hidden">
+          <div className="space-y-3 px-4 py-4 sm:px-6">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="block text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.name}

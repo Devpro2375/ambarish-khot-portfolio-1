@@ -1,25 +1,27 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Target, Compass, Heart, TrendingUp } from 'lucide-react';
+import { Compass, Heart, Target, TrendingUp } from 'lucide-react';
 
 const missions = [
   {
     icon: TrendingUp,
     title: 'Technology-Driven Innovation',
-    description: 'Enable technology-driven business, product, and process innovation that creates measurable impact across industries.',
+    description:
+      'Enable business, product, and process innovation that creates measurable impact across industries.',
   },
   {
     icon: Target,
     title: 'Strengthen Make in India',
-    description: 'Support Make in India export initiatives with deep footprint at grassroots level, building indigenous capabilities.',
+    description:
+      'Support export initiatives with deep grassroots capability and stronger indigenous technology development.',
   },
   {
     icon: Compass,
     title: 'Develop Technical Leaders',
-    description: 'Retain and develop technical leaders to establish India as the intellectual capital of the world.',
+    description:
+      'Retain and develop technical leaders to establish India as a global intellectual capital.',
   },
 ];
 
@@ -28,46 +30,47 @@ export default function Vision() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="vision" ref={ref} className="py-32 bg-accent/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="vision" ref={ref} className="section-shell bg-accent/30">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="section-header"
         >
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-4">
-            Vision & Mission
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Creating Impact Beyond Engineering
-          </h2>
+          <p className="section-kicker">Vision & Mission</p>
+          <h2 className="section-title">Creating Impact Beyond Engineering</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+        <div className="mb-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-background p-8 rounded-2xl shadow-sm"
+            className="surface-panel p-5 sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-foreground text-background rounded-xl">
-                <Heart className="h-6 w-6" />
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-foreground text-background">
+                <Heart className="h-[18px] w-[18px]" />
               </div>
-              <h3 className="font-serif text-2xl font-bold text-foreground">
+              <h3 className="font-serif text-xl font-bold text-foreground sm:text-2xl">
                 Purpose
               </h3>
             </div>
-            <div className="space-y-5 text-muted-foreground leading-relaxed">
+            <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
               <p>
-                India has sustained through centuries, maintaining its pride through sacrifice and resilience. Today's challenge: reclaiming our identity and converting traditional wisdom into tangible wealth.
+                India has sustained through centuries, maintaining its pride
+                through sacrifice and resilience. The challenge now is to
+                convert traditional wisdom into tangible wealth.
               </p>
               <p>
-                Our future is shaped by the actions we take today. Rather than repeating history's mistakes, we must become the restoring force that returns our nation to its truest potential.
+                The future is shaped by actions taken today. The focus is on
+                building technology and intellectual capital with practical,
+                measurable impact.
               </p>
-              <p className="font-semibold text-foreground text-lg pt-2">
-                Building the technology and intellectual capital that will make India proud again.
+              <p className="font-semibold text-foreground">
+                Building the technology and intellectual capital that will make
+                India proud again.
               </p>
             </div>
           </motion.div>
@@ -76,18 +79,19 @@ export default function Vision() {
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-gradient-to-br from-foreground to-foreground/90 text-background p-8 rounded-2xl shadow-lg"
+            className="rounded-lg bg-foreground p-5 text-background shadow-sm sm:p-6"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-background text-foreground rounded-xl">
-                <Target className="h-6 w-6" />
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-background text-foreground">
+                <Target className="h-[18px] w-[18px]" />
               </div>
-              <h3 className="font-serif text-2xl font-bold">
+              <h3 className="font-serif text-xl font-bold sm:text-2xl">
                 Vision
               </h3>
             </div>
-            <p className="text-xl md:text-2xl leading-relaxed font-semibold">
-              Make India proud by developing technology and intellectual capital to achieve <span className="underline decoration-2 underline-offset-4">$35 trillion GDP by 2047</span>.
+            <p className="font-serif text-2xl font-semibold leading-snug sm:text-3xl">
+              Make India proud by developing technology and intellectual capital
+              to achieve <span className="underline underline-offset-4">$35 trillion GDP by 2047</span>.
             </p>
           </motion.div>
         </div>
@@ -97,30 +101,30 @@ export default function Vision() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <h3 className="font-serif text-3xl font-bold text-foreground mb-12 text-center">
+          <h3 className="mb-5 font-serif text-2xl font-bold text-foreground sm:text-3xl">
             Mission Pillars
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {missions.map((mission, index) => (
               <motion.div
                 key={mission.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="bg-background p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group cursor-pointer border border-border/50"
+                className="surface-panel p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-accent rounded-lg">
-                    <mission.icon className="h-5 w-5 text-foreground" />
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="icon-tile">
+                    <mission.icon className="h-[18px] w-[18px]" />
                   </div>
-                  <span className="text-sm font-semibold text-muted-foreground">
+                  <span className="text-xs font-semibold text-muted-foreground">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <h4 className="font-serif text-xl font-bold text-foreground mb-3">
+                <h4 className="font-serif text-lg font-bold leading-snug text-foreground">
                   {mission.title}
                 </h4>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {mission.description}
                 </p>
               </motion.div>
@@ -128,16 +132,15 @@ export default function Vision() {
           </div>
         </motion.div>
 
-        <motion.div
+        <motion.blockquote
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 text-center"
+          className="mx-auto mt-12 max-w-4xl border-t border-border pt-6 text-center font-serif text-xl italic leading-relaxed text-foreground sm:text-2xl"
         >
-          <blockquote className="font-serif text-2xl text-foreground italic max-w-4xl mx-auto">
-            "Today we are where we are because of our past deeds, and where we will be in the near future depends on the corrective actions we take today."
-          </blockquote>
-        </motion.div>
+          Today we are where we are because of our past deeds, and where we will
+          be in the near future depends on the corrective actions we take today.
+        </motion.blockquote>
       </div>
     </section>
   );

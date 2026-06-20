@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -15,7 +14,8 @@ const fallbackArticles = [
     category: 'CFD & Phase Change',
     read_time: '12 min read',
     slug: 'freeze-thaw-def-analysis',
-    image_url: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80',
+    image_url:
+      'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80',
   },
   {
     title: 'Aeroacoustics Noise Prediction in Aftertreatment Systems',
@@ -25,7 +25,8 @@ const fallbackArticles = [
     category: 'Acoustics & CFD',
     read_time: '10 min read',
     slug: 'aeroacoustics-noise-prediction',
-    image_url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
+    image_url:
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
   },
   {
     title: 'Urea Deposit Mitigation Strategies in SCR Technology',
@@ -35,7 +36,8 @@ const fallbackArticles = [
     category: 'Emission Technology',
     read_time: '15 min read',
     slug: 'urea-deposit-mitigation',
-    image_url: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80',
+    image_url:
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80',
   },
 ];
 
@@ -44,71 +46,62 @@ export default function Insights() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="insights" ref={ref} className="py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="insights" ref={ref} className="section-shell bg-background">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="section-header"
         >
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-4">
-            Insights
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Research & Publications
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Technical insights on computational fluid dynamics, emission control systems, and systematic innovation methodologies.
+          <p className="section-kicker">Insights</p>
+          <h2 className="section-title">Research & Publications</h2>
+          <p className="section-copy mx-auto mt-4 max-w-3xl">
+            Technical insights on computational fluid dynamics, emission control
+            systems, and systematic innovation methodologies.
           </p>
         </motion.div>
 
-        <div className="space-y-12">
+        <div className="divide-y divide-border">
           {fallbackArticles.map((article, index) => (
             <motion.article
               key={article.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="border-b border-border pb-12 last:border-b-0 group hover:bg-accent/30 -mx-4 px-4 py-6 rounded-lg transition-all duration-300 cursor-pointer"
+              className="group py-6 first:pt-0 last:pb-0 sm:py-7"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div className="lg:col-span-3">
-                  {article.image_url && (
-                    <div className="relative h-48 lg:h-full w-full overflow-hidden rounded-lg mb-4 lg:mb-0">
-                      <img
-                        src={article.image_url}
-                        alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr] md:gap-6">
+                <div className="relative h-40 w-full overflow-hidden rounded-lg bg-muted md:h-full md:min-h-[150px]">
+                  <img
+                    src={article.image_url}
+                    alt={article.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
 
-                <div className="lg:col-span-9">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                    <Calendar className="h-4 w-4" />
-                    {article.date}
+                <div className="min-w-0">
+                  <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {article.date}
+                    </span>
+                    <span>{article.category}</span>
+                    <span>{article.read_time}</span>
                   </div>
-                  <p className="text-sm font-medium text-foreground mb-1">
-                    {article.category}
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {article.read_time}
-                  </p>
 
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-foreground transition-colors">
+                  <h3 className="font-serif text-xl font-bold leading-snug text-foreground sm:text-2xl">
                     {article.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
                     {article.excerpt}
                   </p>
                   <Link
                     href={`/insights/${article.slug}`}
-                    className="inline-flex items-center text-sm font-medium text-foreground hover:gap-2 transition-all group"
+                    className="mt-4 inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
                   >
                     Read Article
-                    <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>

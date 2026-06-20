@@ -124,6 +124,42 @@
   .transition-theme {
     @apply transition-colors duration-300 ease-in-out;
   }
+
+  .section-shell {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-header {
+    @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12;
+  }
+
+  .section-kicker {
+    @apply mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl;
+  }
+
+  .section-copy {
+    @apply text-sm leading-relaxed text-muted-foreground sm:text-base;
+  }
+
+  .surface-panel {
+    @apply rounded-lg border border-border bg-card shadow-sm;
+  }
+
+  .soft-panel {
+    @apply rounded-lg border border-border/70 bg-muted/35;
+  }
+
+  .icon-tile {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent text-foreground;
+  }
 }
 
 @layer utilities {

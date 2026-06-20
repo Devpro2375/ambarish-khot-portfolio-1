@@ -1,8 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Award, Globe, TrendingUp, Users } from 'lucide-react';
 import { StatsCounter } from '@/components/ui/stats-counter';
 
@@ -39,22 +38,20 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="about" ref={ref} className="py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="about" ref={ref} className="section-shell bg-background">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="section-header"
         >
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-4">
-            About
-          </p>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Engineering Excellence, Proven Results
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Nearly two decades of pioneering work in computational fluid dynamics and emission control systems at Cummins—transforming complex technical challenges into practical, high-impact solutions.
+          <p className="section-kicker">About</p>
+          <h2 className="section-title">Engineering Excellence, Proven Results</h2>
+          <p className="section-copy mx-auto mt-4 max-w-3xl">
+            Nearly two decades of pioneering work in computational fluid
+            dynamics and emission control systems at Cummins, transforming
+            complex technical challenges into practical, high-impact solutions.
           </p>
         </motion.div>
 
@@ -62,7 +59,7 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          className="mb-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
         >
           {highlights.map((item, index) => {
             const number = getNumericValue(item.value);
@@ -75,15 +72,17 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                className="text-center"
+                className="soft-panel p-4 text-center sm:p-5"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent mb-4">
-                  <item.icon className="h-6 w-6 text-foreground" />
+                <div className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-background text-foreground shadow-sm">
+                  <item.icon className="h-[18px] w-[18px]" />
                 </div>
-                <p className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">
+                <p className="mb-1 font-serif text-2xl font-bold text-foreground sm:text-3xl">
                   <StatsCounter end={number} prefix={prefix} suffix={suffix} />
                 </p>
-                <p className="text-sm text-muted-foreground">{item.label}</p>
+                <p className="text-xs leading-snug text-muted-foreground sm:text-sm">
+                  {item.label}
+                </p>
               </motion.div>
             );
           })}
@@ -93,36 +92,58 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          className="grid grid-cols-1 gap-8 md:grid-cols-2"
         >
-          <div className="space-y-6">
+          <div className="space-y-4">
             <h3 className="font-serif text-2xl font-bold text-foreground">
               Expertise
             </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">Technical Advisor</span> at Cummins Emission Solutions, leading breakthrough innovations in aftertreatment systems and multiphase flow modeling.
+            <p className="section-copy">
+              <span className="font-semibold text-foreground">
+                Technical Advisor
+              </span>{' '}
+              at Cummins Emission Solutions, leading breakthrough innovations in
+              aftertreatment systems and multiphase flow modeling.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">M.S. in Computational Fluid Dynamics</span> from Moscow State University. Published author in Springer and Begell House technical books.
+            <p className="section-copy">
+              <span className="font-semibold text-foreground">
+                M.S. in Computational Fluid Dynamics
+              </span>{' '}
+              from Moscow State University. Published author in Springer and
+              Begell House technical books.
             </p>
-            {/* SWE Patent Award Line */}
-            <p className="text-muted-foreground leading-relaxed">
-              Recipient of the <span className="font-semibold text-foreground">SWE Patent Recognition Award (2025)</span>, honoring patented innovations advancing engineering practice and impact.
+            <p className="section-copy">
+              Recipient of the{' '}
+              <span className="font-semibold text-foreground">
+                SWE Patent Recognition Award (2025)
+              </span>
+              , honoring patented innovations advancing engineering practice and
+              impact.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             <h3 className="font-serif text-2xl font-bold text-foreground">
               Philosophy & Values
             </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Personal mission: <span className="font-semibold text-foreground italic">&quot;Faster, better, easier & cheaper than my yesterday.&ldquo;</span>
+            <p className="section-copy">
+              Personal mission:{' '}
+              <span className="font-semibold italic text-foreground">
+                &quot;Faster, better, easier & cheaper than my yesterday.&quot;
+              </span>
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Combining <span className="font-semibold text-foreground">TRIZ innovation methodologies</span> with cutting-edge CFD simulation to solve complex engineering problems systematically.
+            <p className="section-copy">
+              Combining{' '}
+              <span className="font-semibold text-foreground">
+                TRIZ innovation methodologies
+              </span>{' '}
+              with cutting-edge CFD simulation to solve complex engineering
+              problems systematically.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Committed to building India&apos;s intellectual capital and advancing the nation toward global technology leadership—guided by integrity, teamwork, and excellence.
+            <p className="section-copy">
+              Committed to building India&apos;s intellectual capital and
+              advancing the nation toward global technology leadership, guided by
+              integrity, teamwork, and excellence.
             </p>
           </div>
         </motion.div>

@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { MessageSquareQuote, Send, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { MessageSquareQuote, Send, Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
 const testimonialPrompts = [
-  "Technical collaboration",
-  "Mentorship or guidance",
-  "Conference or panel interaction",
+  'Technical collaboration',
+  'Mentorship or guidance',
+  'Conference or panel interaction',
 ];
 
 type PublicTestimonial = {
@@ -35,17 +35,17 @@ export default function Testimonials() {
   const [testimonials, setTestimonials] = useState<PublicTestimonial[]>([]);
   const [isLoadingTestimonials, setIsLoadingTestimonials] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [relationship, setRelationship] = useState("colleague");
+  const [relationship, setRelationship] = useState('colleague');
   const [rating, setRating] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await fetch("/api/testimonials");
+        const response = await fetch('/api/testimonials');
 
         if (!response.ok) {
-          throw new Error("Failed to load testimonials");
+          throw new Error('Failed to load testimonials');
         }
 
         const data = await response.json();
@@ -67,47 +67,47 @@ export default function Testimonials() {
     try {
       const form = event.currentTarget;
       const formData = new FormData(form);
-      const name = formData.get("name") as string;
-      const email = formData.get("email") as string;
-      const organization = formData.get("organization") as string;
-      const message = formData.get("message") as string;
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const organization = formData.get('organization') as string;
+      const message = formData.get('message') as string;
 
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
           email,
-          feedback_type: "testimonial",
+          feedback_type: 'testimonial',
           rating: rating || undefined,
           message: [
             `Relationship: ${relationship}`,
             organization ? `Organization: ${organization}` : null,
-            "",
+            '',
             message,
           ]
             .filter(Boolean)
-            .join("\n"),
+            .join('\n'),
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit testimonial");
+        throw new Error('Failed to submit testimonial');
       }
 
       toast({
-        title: "Testimonial submitted",
-        description: "Thank you. It will be reviewed before publishing.",
+        title: 'Testimonial submitted',
+        description: 'Thank you. It will be reviewed before publishing.',
       });
 
       form.reset();
-      setRelationship("colleague");
+      setRelationship('colleague');
       setRating(0);
-    } catch (error) {
+    } catch {
       toast({
-        title: "Submission failed",
-        description: "Please try again or use the contact form.",
-        variant: "destructive",
+        title: 'Submission failed',
+        description: 'Please try again or use the contact form.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -115,30 +115,28 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="bg-background py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <section id="testimonials" className="section-shell bg-background">
+      <div className="section-container">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="mb-3 text-sm uppercase tracking-wider text-muted-foreground">
-              Testimonials
-            </p>
-            <h2 className="font-serif text-4xl font-bold leading-tight text-foreground md:text-5xl">
+            <p className="section-kicker">Testimonials</p>
+            <h2 className="font-serif text-3xl font-bold leading-tight text-foreground sm:text-4xl">
               Share your experience
             </h2>
-            <p className="mt-5 max-w-xl text-muted-foreground">
+            <p className="section-copy mt-4 max-w-xl">
               Colleagues, collaborators, students, and conference participants
               can share a short note about working with Ambarish. Submissions are
               reviewed before they are used on the website.
             </p>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 space-y-3">
               {isLoadingTestimonials ? (
-                <div className="rounded-xl border border-border bg-muted/40 p-5 text-sm text-muted-foreground">
+                <div className="rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
                   Loading testimonials...
                 </div>
               ) : testimonials.length > 0 ? (
@@ -149,21 +147,23 @@ export default function Testimonials() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: index * 0.08 }}
-                    className="rounded-xl border border-border bg-card p-5 shadow-sm"
+                    className="rounded-lg border border-border bg-card p-4 shadow-sm"
                   >
                     {testimonial.rating ? (
                       <div className="mb-3 flex gap-1">
-                        {Array.from({ length: testimonial.rating }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className="h-4 w-4 fill-yellow-500 text-yellow-500"
-                          />
-                        ))}
+                        {Array.from({ length: testimonial.rating }).map(
+                          (_, i) => (
+                            <Star
+                              key={i}
+                              className="h-4 w-4 fill-yellow-500 text-yellow-500"
+                            />
+                          ),
+                        )}
                       </div>
                     ) : null}
 
                     <p className="text-sm leading-relaxed text-foreground">
-                      "{testimonial.message}"
+                      &quot;{testimonial.message}&quot;
                     </p>
 
                     <div className="mt-4 border-t border-border pt-3">
@@ -173,7 +173,7 @@ export default function Testimonials() {
                       <p className="text-xs text-muted-foreground">
                         {[testimonial.relationship, testimonial.organization]
                           .filter(Boolean)
-                          .join(" · ")}
+                          .join(' - ')}
                       </p>
                     </div>
                   </motion.article>
@@ -199,10 +199,10 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6"
+            className="rounded-lg border border-border bg-card p-4 shadow-sm sm:p-5"
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid gap-4 sm:grid-cols-2">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="testimonial-name">Name</Label>
                   <Input
@@ -226,7 +226,7 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <div>
                   <Label>Relationship</Label>
                   <Select value={relationship} onValueChange={setRelationship}>
@@ -237,7 +237,9 @@ export default function Testimonials() {
                       <SelectItem value="colleague">Colleague</SelectItem>
                       <SelectItem value="collaborator">Collaborator</SelectItem>
                       <SelectItem value="student">Student / Mentee</SelectItem>
-                      <SelectItem value="conference">Conference participant</SelectItem>
+                      <SelectItem value="conference">
+                        Conference participant
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -266,10 +268,10 @@ export default function Testimonials() {
                       aria-label={`${value} star rating`}
                     >
                       <Star
-                        className={`h-6 w-6 ${
+                        className={`h-5 w-5 ${
                           value <= rating
-                            ? "fill-yellow-500 text-yellow-500"
-                            : "text-muted-foreground/40"
+                            ? 'fill-yellow-500 text-yellow-500'
+                            : 'text-muted-foreground/40'
                         }`}
                       />
                     </button>
@@ -283,7 +285,7 @@ export default function Testimonials() {
                   id="testimonial-message"
                   name="message"
                   required
-                  rows={5}
+                  rows={4}
                   placeholder="Write a short testimonial about your experience..."
                   className="mt-2"
                 />
@@ -294,7 +296,7 @@ export default function Testimonials() {
                 disabled={isSubmitting}
                 className="w-full bg-foreground text-background hover:bg-foreground/90"
               >
-                {isSubmitting ? "Submitting..." : "Submit Testimonial"}
+                {isSubmitting ? 'Submitting...' : 'Submit Testimonial'}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
             </form>
